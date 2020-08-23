@@ -26,11 +26,12 @@
 | image             | string     | null: false                    |
 | name              | string     | null: false                    |
 | content           | text       | null: false                    |
-| condition         | string     | null: false                    |
-| prefecture        | integer    | null: false, foreign_key: true |
-| delivery_fee      | string     | null: false                    |
-| delivery_days     | string     | null: false                    |
-| price             | string     | null: false                    |
+| condition_id      | integer    | null: false, foreign_key: true |
+| prefecture_id     | integer    | null: false, foreign_key: true |
+| category_id       | integer    | null: false, foreign_key: true |
+| delivery_fee_id   | integer    | null: false, foreign_key: true |
+| delivery_days_id  | integer    | null: false, foreign_key: true |
+| price             | integer    | null: false                    |
 
 ### Association
 
@@ -38,7 +39,11 @@
 - belongs_to : user
 - has_many :comments
 - has_many :tags, through: item_tags
+- belongs_to_active_hash  ：condition
 - belongs_to_active_hash  ：prefecture
+- belongs_to_active_hash  ：category
+- belongs_to_active_hash  ：delivery_fee
+- belongs_to_active_hash  ：delivery_days
 
 ## comments テーブル
 
@@ -95,7 +100,7 @@
 | ------------- | ---------- | ------------------------------ |
 | order         | references | null: false, foreign_key: true | 
 | postal_code   | string     | null: false                    |
-| prefecture    | integer    | null: false, foreign_key: true |
+| prefecture_id | integer    | null: false, foreign_key: true |
 | city          | string     | null: false                    |
 | address       | string     | null: false                    |
 | building_name | string     |                                |
