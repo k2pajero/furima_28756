@@ -26,11 +26,11 @@
 | image             | string     | null: false                    |
 | name              | string     | null: false                    |
 | content           | text       | null: false                    |
-| condition_id      | integer    | null: false, foreign_key: true |
-| prefecture_id     | integer    | null: false, foreign_key: true |
-| category_id       | integer    | null: false, foreign_key: true |
-| delivery_fee_id   | integer    | null: false, foreign_key: true |
-| delivery_days_id  | integer    | null: false, foreign_key: true |
+| condition_id      | integer    | null: false                    |
+| prefecture_id     | integer    | null: false                    |
+| category_id       | integer    | null: false                    |
+| delivery_fee_id   | integer    | null: false                    |
+| delivery_days_id  | integer    | null: false                    |
 | price             | integer    | null: false                    |
 
 ### Association
@@ -100,7 +100,7 @@
 | ------------- | ---------- | ------------------------------ |
 | order         | references | null: false, foreign_key: true | 
 | postal_code   | string     | null: false                    |
-| prefecture_id | integer    | null: false, foreign_key: true |
+| prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | address       | string     | null: false                    |
 | building_name | string     |                                |
