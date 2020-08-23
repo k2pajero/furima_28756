@@ -16,6 +16,7 @@
 
 - has_many :items
 - has_many :orders
+- has_many :comments
 
 ## items テーブル
 
@@ -26,8 +27,8 @@
 | name              | string     | null: false                    |
 | content           | text       | null: false                    |
 | condition         | string     | null: false                    |
-| category          | integer    | null: false                    |
-| prefecture        | integer    | null: false                    |
+| category          | integer    | null: false, foreign_key: true |
+| prefecture        | integer    | null: false, foreign_key: true |
 | delivery_fee      | string     | null: false                    |
 | delivery_days     | string     | null: false                    |
 | price             | string     | null: false                    |
@@ -42,13 +43,17 @@
 
 ## comments テーブル
 
-| Column  | Type       | Options  |
-| ------- | ---------- | -------- |
-| content | text       |          |
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| user         | references | null: false, foreign_key: true |
+| item         | references | null: false, foreign_key: true |
+| comment      | text       |                                |
 
 ### Association
 
 - belongs_to :item
+- belongs_to :user
+
 
 ## orders テーブル
 
@@ -69,7 +74,7 @@
 | ------------- | ---------- | ------------------------------ |
 | order         | references | null: false, foreign_key: true | 
 | postal_code   | string     | null: false                    |
-| prefecture    | integer    | null: false                    |
+| prefecture    | integer    | null: false, foreign_key: true |
 | city          | string     | null: false                    |
 | address       | string     | null: false                    |
 | building_name | string     |                                |
