@@ -38,7 +38,6 @@
 - has_one  :order
 - belongs_to : user
 - has_many :comments
-- has_many :tags, through: item_tags
 - belongs_to_active_hash  ：condition
 - belongs_to_active_hash  ：prefecture
 - belongs_to_active_hash  ：category
@@ -57,29 +56,6 @@
 
 - belongs_to :item
 - belongs_to :user
-
-
-## item_tags テーブル
-
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| item   | references | null: false, foreign_key: true |
-| tag    | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :item
-- belongs_to :tag
-
-## tags テーブル
-
-| Column   | Type       | Options  |
-| -------- | ---------- | -------- |
-| category | string     |          |
-
-### Association
-
-- has_many :items, through: item_tags
 
 ## orders テーブル
 
