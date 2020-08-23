@@ -27,7 +27,6 @@
 | name              | string     | null: false                    |
 | content           | text       | null: false                    |
 | condition         | string     | null: false                    |
-| category          | integer    | null: false, foreign_key: true |
 | prefecture        | integer    | null: false, foreign_key: true |
 | delivery_fee      | string     | null: false                    |
 | delivery_days     | string     | null: false                    |
@@ -38,8 +37,8 @@
 - has_one  :order
 - belongs_to : user
 - has_many :comments
+- has_many :tags, through: item_tags
 - belongs_to_active_hash  ：prefecture
-- belongs_to_active_hash  ：category
 
 ## comments テーブル
 
@@ -54,6 +53,28 @@
 - belongs_to :item
 - belongs_to :user
 
+
+## item_tags テーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| item   | references | null: false, foreign_key: true |
+| tag    | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :item
+- belongs_to :tag
+
+## tags テーブル
+
+| Column   | Type       | Options  |
+| -------- | ---------- | -------- |
+| category | string     |          |
+
+### Association
+
+- has_many :items, through: item_tags
 
 ## orders テーブル
 
