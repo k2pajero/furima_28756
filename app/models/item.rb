@@ -5,7 +5,8 @@ class Item < ApplicationRecord
   belongs_to_active_hash :prefecture
   belongs_to_active_hash :delivery_fee
   belongs_to_active_hash :delivery_days
-
+  has_one_attached :image
+  
   validates :image,            presence: true
   validates :name,             presence: true, length: { maximum: 40}
   validates :content,          presence: true, length: { maximum: 1000}
