@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  # showアクションを指定したら、[:show]を追加する
   before_action :move_to_index, except: [:index, :show]
+  before_action :set_item, only: [:show, :destroy, :update, :edit]
   def index
     @items = Item.all.order(created_at: 'DESC')
   end
@@ -11,23 +11,33 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.create(item_params)
-    if @item.save
+    if @item.valid?
+      @item.save
       redirect_to root_path
     else
-      render :new
+      render 'new'
     end
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def destroy
-    item = Item.find(params[:id])
-    if item.destroy
+    if @item.destroy
       redirect_to root_path
     else
-      redirect_to item_path(item.id)
+      render 'show'
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to root_path
+    else
+      render 'edit'
     end
   end
 
@@ -41,9 +51,10 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    unless user_signed_in?
-      # リダイレクト先はnewの方が良いか？newアクション指定後に検討
-      redirect_to action: :index
-    end
+    redirect_to action: :index unless user_signed_in?
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 end
