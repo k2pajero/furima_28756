@@ -12,4 +12,6 @@ class User < ApplicationRecord
   validates :reading_family_name, presence: true, format: { with: /\A[ァ-ン]+\z/, message: '全角カタカナ文字を使用してください' }
   validates :reading_first_name, presence: true, format: { with: /\A[ァ-ン]+\z/, message: '全角カタカナ文字を使用してください' }
   validates :birthday, presence: true
+
+  has_many :items
 end
