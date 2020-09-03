@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   # showアクションを指定したら、[:show]を追加する
-  before_action :move_to_index, except: [:index]
+  before_action :move_to_index, except: [:index, :show]
   def index
     @items = Item.all.order(created_at: 'DESC')
   end
