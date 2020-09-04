@@ -4,7 +4,7 @@ class Delivery < ApplicationRecord
   belongs_to_active_hash :prefecture
 
   with_options presence: true do
-    validates :order
+    # validates :order
     validates :prefecture_id, numericality: { other_than: 0 }
     validates :postal_code, format: {
       with: /\A[0-9]{3}[-][0-9]{4}\z/, messsgge: "「-」も入力してください"}
