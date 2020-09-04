@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 # 保存先はdeliveryテーブルだがここで合ってる？
   private
   def order_params
-    params.require(:order).permit(:postal_code, :prefecture_id, :city, :address, :tell, :building_name)
+    params.require(:order).permit(:postal_code, :prefecture_id, :city, :address, :tell, :building_name, :tell)
   end
 # まだ作動できない
   def move_to_index
