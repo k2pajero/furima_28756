@@ -5,7 +5,7 @@ class CreateDeliveries < ActiveRecord::Migration[6.0]
       t.string     :postal_code, default: "",      	 null: false
       t.integer    :prefecture_id,       null: false
       t.string     :city, default: "",               null: false
-      t.string     :adress, default: "",    	       null: false
+      t.string     :address, default: "",    	       null: false
       t.string     :building_name, default: ""
       t.string     :tell, default: "",                null: false
       t.timestamps
