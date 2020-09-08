@@ -26,6 +26,5 @@ class Item < ApplicationRecord
   validates :delivery_days_id, numericality: { other_than: 1 }
 
   belongs_to :user
-  has_one  :order
-  
+  has_one :order
 end
