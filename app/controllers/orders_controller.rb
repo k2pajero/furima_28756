@@ -1,42 +1,47 @@
 class OrdersController < ApplicationController
-  # before_action :move_to_index, except: :index
+  before_action :authenticate_user!
+  before_action :set_action, only: [:index, :ceate]
+  before_action :move_to_index
+
   def index
-    @item = Item.find(params[:item_id])
+    @order = Order.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
-    @order = OrderDelivery.new(:user_id, :item_id, :postal_code, :prefecture_id, :city, :address, :building_name, :tell, :token 
-      order_params(:user_id, :item_id, :postal_code, :prefecture_id, :city, :address, :building_name, :tell, :token))
-
+    @order = OrderDelivery.new(order_params)
+  
     if @order.valid?
       pay_item 
       @order.save
       return redirect_to root_path
     else
-      # 'new'?
       render 'index'
     end
   end
 
   private
   
-  # 保存先はdeliveryテーブルだがここで合ってる？
   def order_params
-    params.require(:order_delivery).permit(:user_id, :item_id, :postal_code, :prefecture_id, :city, :address, :building_name, :tell, :token)
+    params.require(:order).permit(:postal_code, :prefecture_id, :city, :address, :building_name, :tell, :token).merge(user_id: current_user.id, item_id: params[:item_id])
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_edced86049b529e0c33694ef"  # PAY.JPテスト秘密鍵
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # PAY.JPテスト秘密鍵
     Payjp::Charge.create(
-      amount: @item.price,  # 商品の値段
+      amount: @item.price,           # 商品の値段
       card: order_params[:token],    # カードトークン
       currency:'jpy'                 # 通貨の種類(日本円)
     )
   end
+  
+  def set_action
+    @item = Item.find(params[:item_id])
+  end
 
-  # まだ作動できない
-  # def move_to_index
-  #   # redirect_to root_path unless current_user.id != @item.user_id
-  # end
+  def move_to_index
+    # binding.pry
+    if current_user.id == @item.user_id || @item.order != nil
+      redirect_to root_path
+    end
+  end
 end
