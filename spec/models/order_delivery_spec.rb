@@ -60,7 +60,9 @@ RSpec.describe OrderDelivery, type: :model do
       it '電話番号にハイフン「-」があると登録できない' do
         @order_delivery.tell = '090-1234-5678'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include('Tell 半角数字で入力してください。「-」は不要です', 'Tell is too long (maximum is 11 characters)')
+        expect(@order_delivery.errors.full_messages).to include(
+          'Tell 半角数字で入力してください。「-」は不要です', 'Tell is too long (maximum is 11 characters)'
+        )
       end
       it '電話番号が11桁以上あると登録できない' do
         @order_delivery.tell = '090123456789'
