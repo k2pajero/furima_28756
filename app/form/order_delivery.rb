@@ -12,6 +12,7 @@ class OrderDelivery
     validates :tell, format: {
       with: /\A[0-9]+\z/, message: "半角数字で入力してください。「-」は不要です"},
       length: { maximum: 11 }
+    validates :token, presence: true
   end
 
 
